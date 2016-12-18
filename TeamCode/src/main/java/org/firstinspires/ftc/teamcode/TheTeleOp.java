@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
  * Created by rohitshankar on 9/11/16.
- * Basic TeleOp
+ * Basic TeleOp :)
  *
  */
 @TeleOp(name = "TheTeleOp", group = "TeleOp")
@@ -39,42 +39,42 @@ public class TheTeleOp extends OpMode
     }
 
     //after start and before stop
-    public void loop()
-    {
+    public void loop() {
         // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
         // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
 
-        double left  = -gamepad1.left_stick_y + gamepad1.right_stick_x;
+        double left = -gamepad1.left_stick_y + gamepad1.right_stick_x;
         double right = -gamepad1.left_stick_y - gamepad1.right_stick_x;
 
         hr.motorLeft.setPower(left);
         hr.motorRight.setPower(right);
 
-        if(gamepad1.right_bumper) {
+        if (gamepad1.right_bumper) {
             hr.motorCarwash.setPower(1);
-        }
-        else if(gamepad1.left_bumper)
-        {
+        } else if (gamepad1.left_bumper) {
             hr.motorCarwash.setPower(-1);
-        }
-        else{
+        } else {
             hr.motorCarwash.setPower(0);
         }
 
-        if(gamepad1.a) {
+        if (gamepad1.a) {
+            hr.motorLauncher.setPower(1);
+        }
+        if (gamepad1.b) {
             hr.motorLauncher.setPower(-1);
-        }else {
+        } else {
             hr.motorLauncher.setPower(0);
         }
-        if(gamepad1.x)
-        {
+        if (gamepad1.x) {
+            hr.launcherServo.setPower(-1);
+        }
+        if (gamepad1.y) {
             hr.launcherServo.setPower(1);
-        }else{
-            hr.launcherServo.setPower(0);
         }
 
-    }
 
+
+    }
     //end
     public void stop()
     {
