@@ -40,48 +40,54 @@ public class TheTeleOp extends OpMode
 
     //after start and before stop
     public void loop() {
-        // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
-        // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
 
-        double left = -gamepad1.left_stick_y + gamepad1.right_stick_x;
+        double left  = -gamepad1.left_stick_y + gamepad1.right_stick_x;
         double right = -gamepad1.left_stick_y - gamepad1.right_stick_x;
+
+        // Normalize the values so neither exceed +/- 1.0
+        double max = Math.max(Math.abs(left), Math.abs(right));
+        if (max > 1.0)
+        {
+            left /= max;
+            right /= max;
+        }
 
         hr.motorLeft.setPower(left);
         hr.motorRight.setPower(right);
 
+
         if (gamepad1.right_bumper) {
             hr.motorCarwash.setPower(1);
-        } else {
+        }
+        else if (gamepad1.left_bumper) {
+            hr.motorCarwash.setPower(-1);
+        }
+        else{
             hr.motorCarwash.setPower(0);
         }
-
         if (gamepad1.a) {
+            hr.motorLauncher.setPower(-1);
+        }
+        else if(gamepad1.b){
             hr.motorLauncher.setPower(1);
         }
-        if (gamepad1.b) {
-            hr.motorLauncher.setPower(-1);
-        } else {
+        else {
             hr.motorLauncher.setPower(0);
         }
-        if (gamepad1.x) {
+        if (gamepad1.y){
             hr.launcherServo.setPower(1);
         }
-        if (gamepad1.y) {
+        else if (gamepad1.x){
             hr.launcherServo.setPower(-1);
         }
-        if (gamepad1.right_bumper){
+        else {
             hr.launcherServo.setPower(0);
         }
-        
-
     }
     //end
     public void stop()
     {
-        hr.motorRight.setPower(0);
-        hr.motorLeft.setPower(0);
-        hr.motorCarwash.setPower(0);
-        hr.motorLauncher.setPower(0);
+
 
     }
 
