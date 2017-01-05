@@ -17,6 +17,7 @@ public class HardwareRobot
     public DcMotor motorLauncher = null;
     public CRServo launcherServo = null;
     private ElapsedTime period  = new ElapsedTime();
+
     HardwareMap hwMap = null;
 
     public HardwareRobot()
@@ -34,7 +35,6 @@ public class HardwareRobot
         motorLeft = hwMap.dcMotor.get("motorLeft");
         motorCarwash = hwMap.dcMotor.get("motorCarwash");
         motorLauncher = hwMap.dcMotor.get("motorC");
-
         launcherServo = hwMap.crservo.get("servoL");
 
         motorRight.setPower(0);
@@ -44,8 +44,17 @@ public class HardwareRobot
         launcherServo.setPower(0);
 
         motorLeft.setDirection(DcMotor.Direction.REVERSE);
+        motorRight.setDirection(DcMotor.Direction.FORWARD);
+
         motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motorLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLauncher.setMaxSpeed(3062);
+
+        motorLauncher.setDirection(DcMotor.Direction.FORWARD);
+        launcherServo.setDirection(CRServo.Direction.REVERSE);
+        motorCarwash.setDirection(DcMotor.Direction.REVERSE);
 
     }
 
