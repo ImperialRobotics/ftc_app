@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * Created by rohitshankar on 9/11/16.
@@ -16,6 +17,7 @@ public class HardwareRobot
     public DcMotor motorCarwash = null;
     public DcMotor motorLauncher = null;
     public CRServo launcherServo = null;
+    public ColorSensor color_sensor = null;
     private ElapsedTime period  = new ElapsedTime();
 
     HardwareMap hwMap = null;
@@ -36,7 +38,9 @@ public class HardwareRobot
         motorCarwash = hwMap.dcMotor.get("motorCarwash");
         motorLauncher = hwMap.dcMotor.get("motorC");
         launcherServo = hwMap.crservo.get("servoL");
-
+        color_sensor = hardwareMap.colorSensor.get("color");
+        
+        colorSensor.enableLed(false);
         motorRight.setPower(0);
         motorLeft.setPower(0);
         motorCarwash.setPower(0);
