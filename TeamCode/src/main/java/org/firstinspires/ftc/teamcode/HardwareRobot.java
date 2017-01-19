@@ -17,7 +17,7 @@ public class HardwareRobot
     public DcMotor motorCarwash = null;
     public DcMotor motorLauncher = null;
     public CRServo launcherServo = null;
-    public ColorSensor color_sensor = null;
+    public ColorSensor colorSensor = null;
     private ElapsedTime period  = new ElapsedTime();
 
     HardwareMap hwMap = null;
@@ -38,7 +38,7 @@ public class HardwareRobot
         motorCarwash = hwMap.dcMotor.get("motorCarwash");
         motorLauncher = hwMap.dcMotor.get("motorC");
         launcherServo = hwMap.crservo.get("servoL");
-        color_sensor = hardwareMap.colorSensor.get("color");
+        colorSensor = hwMap.colorSensor.get("color");
         
         colorSensor.enableLed(false);
         motorRight.setPower(0);
