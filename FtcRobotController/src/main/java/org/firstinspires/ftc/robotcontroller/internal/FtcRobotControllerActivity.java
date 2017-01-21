@@ -133,6 +133,7 @@ public class FtcRobotControllerActivity extends Activity {
   protected ImmersiveMode immersion;
 
   protected UpdateUI updateUI;
+
   protected Dimmer dimmer;
   protected LinearLayout entireScreenLayout;
 
