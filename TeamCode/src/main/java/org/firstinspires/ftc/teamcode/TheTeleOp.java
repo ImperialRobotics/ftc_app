@@ -56,28 +56,28 @@ public class TheTeleOp extends OpMode
         hr.motorRight.setPower(right);
 
 
-        if (gamepad1.right_bumper) {
-            hr.motorCarwash.setPower(1);
-        }
-        else if (gamepad1.left_bumper) {
-            hr.motorCarwash.setPower(-1);
-        }
-        else{
-            hr.motorCarwash.setPower(0);
-        }
-        if (gamepad1.a) {
+        if (gamepad1.right_trigger > 0.5) {
             hr.motorLauncher.setPower(-1);
         }
-        else if(gamepad1.b){
+        else if (gamepad1.left_trigger > 0.5) {
             hr.motorLauncher.setPower(1);
         }
-        else {
+        else{
             hr.motorLauncher.setPower(0);
         }
-        if (gamepad1.y){
+        if (gamepad1.a) {
+            hr.motorCarwash.setPower(-1);
+        }
+        else if(gamepad1.b){
+            hr.motorCarwash.setPower(1);
+        }
+        else {
+            hr.motorCarwash.setPower(0);
+        }
+        if (gamepad1.right_bumper){
             hr.launcherServo.setPower(1);
         }
-        else if (gamepad1.x){
+        else if (gamepad1.left_bumper){
             hr.launcherServo.setPower(-1);
         }
         else {

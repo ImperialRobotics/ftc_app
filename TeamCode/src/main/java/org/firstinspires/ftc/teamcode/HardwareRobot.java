@@ -38,9 +38,9 @@ public class HardwareRobot
         motorCarwash = hwMap.dcMotor.get("motorCarwash");
         motorLauncher = hwMap.dcMotor.get("motorC");
         launcherServo = hwMap.crservo.get("servoL");
-        colorSensor = hwMap.colorSensor.get("color");
+        //colorSensor = hwMap.colorSensor.get("color");
         
-        colorSensor.enableLed(false);
+        //colorSensor.enableLed(false);
         motorRight.setPower(0);
         motorLeft.setPower(0);
         motorCarwash.setPower(0);
