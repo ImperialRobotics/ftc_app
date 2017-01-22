@@ -57,10 +57,10 @@ public class TheTeleOp extends OpMode
 
 
         if (gamepad1.right_trigger > 0.5) {
-            hr.motorLauncher.setPower(-1);
+            hr.motorLauncher.setPower(-0.33);
         }
         else if (gamepad1.left_trigger > 0.5) {
-            hr.motorLauncher.setPower(1);
+            hr.motorLauncher.setPower(0.33);
         }
         else{
             hr.motorLauncher.setPower(0);
