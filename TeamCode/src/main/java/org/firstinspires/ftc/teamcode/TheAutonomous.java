@@ -20,7 +20,7 @@ public class TheAutonomous extends LinearOpModeCamera
     static final double DRIVE_GEAR_REDUCTION = 0.667 ;//80/120 = 0.66
     static final double WHEEL_DIAMETER_INCHES = 4.0 ;
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.2;
+    static final double DRIVE_SPEED = 0.13;
     static final double TURN_SPEED = 0.1;
 
     public void runOpMode() throws InterruptedException
@@ -49,11 +49,14 @@ public class TheAutonomous extends LinearOpModeCamera
         //write instructions to drive robot
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        hr.motorLauncher.setPower(-0.8);
-        encoderDrive(DRIVE_SPEED,  -23,  -23   , 5.0);  // S1: Forward 20 Inches with 5 Sec timeout
+
+        hr.motorLauncher.setPower(-0.33);
+        encoderDrive(DRIVE_SPEED,  -25.9,  -25.9   , 5.0);  // S1: Forward 20 Inches with 5 Sec timeout
         hr.launcherServo.setPower(1);
         hr.motorCarwash.setPower(-1);
-        sleep(3000);
+        sleep(4000);
+        hr.motorLauncher.setPower(0);
+        encoderDrive(DRIVE_SPEED, -15 , -15 , 4.0);
         telemetry.addData("Path", "Complete");
         telemetry.update();
 
