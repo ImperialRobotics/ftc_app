@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import for_camera_opmodes.LinearOpModeCamera;
@@ -16,6 +17,8 @@ public class TheAutonomous extends LinearOpModeCamera
     HardwareRobot hr = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
+    ParticleSystem ps = null;
+
     static final double COUNTS_PER_MOTOR_REV = 1120 ;//encoder counts for andymark motor
     static final double DRIVE_GEAR_REDUCTION = 0.667 ;//80/120 = 0.66
     static final double WHEEL_DIAMETER_INCHES = 4.0 ;
@@ -23,11 +26,12 @@ public class TheAutonomous extends LinearOpModeCamera
     static final double DRIVE_SPEED = 0.13;
     static final double TURN_SPEED = 0.1;
 
+
     public void runOpMode() throws InterruptedException
     {
 
         hr.init(hardwareMap);
-        waitForStart();
+        ps = new ParticleSystem(hr.motorLauncher , hr.motorCarwash ,hr.launcherServo);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");
@@ -50,13 +54,12 @@ public class TheAutonomous extends LinearOpModeCamera
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        hr.motorLauncher.setPower(-0.33);
-        encoderDrive(DRIVE_SPEED,  -25.9,  -25.9   , 5.0);  // S1: Forward 20 Inches with 5 Sec timeout
-        hr.launcherServo.setPower(1);
-        hr.motorCarwash.setPower(-1);
+        ps.spinUp();
+        encoderDrive(DRIVE_SPEED,  25.9,  25.9   , 5.0);  // S1: Forward 20 Inches with 5 Sec timeout
+        ps.shoot();
         sleep(4000);
-        hr.motorLauncher.setPower(0);
-        encoderDrive(DRIVE_SPEED, -15 , -15 , 4.0);
+        ps.stop();
+        encoderDrive(DRIVE_SPEED, 15 , 15 , 4.0);
         telemetry.addData("Path", "Complete");
         telemetry.update();
 

@@ -15,12 +15,15 @@ public class TheTeleOp extends OpMode
 {
 
     HardwareRobot hr = new HardwareRobot();
+    ParticleSystem ps = null;
+    private boolean[] buttonSavedStates = new boolean[11];
+    private boolean shouldShoot = false;
 
     //when init button is pressed
     public void init()
     {
         hr.init(hardwareMap);
-
+        ps = new ParticleSystem(hr.motorLauncher , hr.motorCarwash ,hr.launcherServo);
         telemetry.addData("Say", "Initialize Complete");
         updateTelemetry(telemetry);
 
@@ -41,8 +44,8 @@ public class TheTeleOp extends OpMode
     //after start and before stop
     public void loop() {
 
-        double left  = -gamepad1.left_stick_y + gamepad1.right_stick_x;
-        double right = -gamepad1.left_stick_y - gamepad1.right_stick_x;
+        double left  = gamepad1.left_stick_y + gamepad1.right_stick_x;
+        double right = gamepad1.left_stick_y - gamepad1.right_stick_x;
 
         // Normalize the values so neither exceed +/- 1.0
         double max = Math.max(Math.abs(left), Math.abs(right));
@@ -56,32 +59,28 @@ public class TheTeleOp extends OpMode
         hr.motorRight.setPower(right);
 
 
-        if (gamepad1.right_trigger > 0.5) {
-            hr.motorLauncher.setPower(-0.33);
+        if (toggleAllowed(gamepad1.a, 0)) {
+            ps.collect();
         }
-        else if (gamepad1.left_trigger > 0.5) {
-            hr.motorLauncher.setPower(0.33);
+
+        else if(toggleAllowed(gamepad1.b, 1)){
+            ps.shoot();
         }
-        else{
-            hr.motorLauncher.setPower(0);
+
+        if(toggleAllowed(gamepad1.x, 2)){
+            ps.spinUp();
         }
-        if (gamepad1.a) {
-            hr.motorCarwash.setPower(-1);
+
+        if(toggleAllowed(gamepad1.y, 3)){
+            ps.trigger();
         }
-        else if(gamepad1.b){
-            hr.motorCarwash.setPower(1);
+
+        if (toggleAllowed(gamepad1.right_bumper, 9)){
+            shouldShoot = !shouldShoot;
         }
-        else {
-            hr.motorCarwash.setPower(0);
-        }
-        if (gamepad1.right_bumper){
-            hr.launcherServo.setPower(1);
-        }
-        else if (gamepad1.left_bumper){
-            hr.launcherServo.setPower(-1);
-        }
-        else {
-            hr.launcherServo.setPower(0);
+
+        if(shouldShoot){
+            ps.cycle();
         }
     }
     //end
@@ -90,5 +89,39 @@ public class TheTeleOp extends OpMode
 
 
     }
+    boolean toggleAllowed(boolean button, int buttonIndex)
+    {
+
+        /*button indexes:
+        0  = a
+        1  = b
+        2  = x
+        3  = y
+        4  = dpad_down
+        5  = dpad_up
+        6  = dpad_left
+        7  = dpad_right
+        8  = left bumper
+        9  = right bumper
+        10 = start button
+        */
+
+        if (button) {
+            if (!buttonSavedStates[buttonIndex])  { //we just pushed the button, and when we last looked at it, it was not pressed
+                buttonSavedStates[buttonIndex] = true;
+                return true;
+            }
+            //       else if(buttonCurrentState[buttonIndex] == buttonSavedStates[buttonIndex] && buttonCurrentState[buttonIndex]){
+            else { //the button is pressed, but it was last time too - so ignore
+
+                return false;
+            }
+        }
+
+        buttonSavedStates[buttonIndex] = false; //not pressed, so remember that it is not
+        return false; //not pressed
+
+    }
+
 
 }
