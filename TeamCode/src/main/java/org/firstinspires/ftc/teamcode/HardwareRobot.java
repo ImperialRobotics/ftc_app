@@ -50,8 +50,8 @@ public class HardwareRobot
 
         motorLeft.setDirection(DcMotor.Direction.FORWARD);
         motorRight.setDirection(DcMotor.Direction.REVERSE);
-        motorCarwash.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
+        //motorCarwash.setDirection(DcMotorSimple.Direction.REVERSE);
+        //motorLauncher.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -70,11 +70,11 @@ public class HardwareRobot
 
         long  remaining = periodMs - (long)period.milliseconds();
 
-        // sleep for the remaining portion of the regular cycle period.
+        // sleep for the remaining portion of the regular shoot period.
         if (remaining > 0)
             Thread.sleep(remaining);
 
-        // Reset the cycle clock for the next pass.
+        // Reset the shoot clock for the next pass.
         period.reset();
     }
 

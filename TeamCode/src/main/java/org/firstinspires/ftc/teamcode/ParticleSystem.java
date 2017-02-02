@@ -57,7 +57,7 @@ public class ParticleSystem {
             carwash.setPower(0);
     }
 
-    public void shoot(){
+    public void eject(){
         if(carwash.getPower() == 0)
             carwash.setPower(-carwashSpeed);
         else
@@ -68,7 +68,7 @@ public class ParticleSystem {
         carwash.setPower(0);
     }
 
-    public void cycle(){
+    public void shoot(){
         if(motorLauncher.getPower() == 0){
             spinUp();
             shootTimer = System.nanoTime() + (long) 1e9;

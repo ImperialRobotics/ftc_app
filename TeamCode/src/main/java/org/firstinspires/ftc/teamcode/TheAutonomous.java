@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import for_camera_opmodes.LinearOpModeCamera;
@@ -56,7 +55,7 @@ public class TheAutonomous extends LinearOpModeCamera
 
         ps.spinUp();
         encoderDrive(DRIVE_SPEED,  25.9,  25.9   , 5.0);  // S1: Forward 20 Inches with 5 Sec timeout
-        ps.shoot();
+        ps.eject();
         sleep(4000);
         ps.stop();
         encoderDrive(DRIVE_SPEED, 15 , 15 , 4.0);
