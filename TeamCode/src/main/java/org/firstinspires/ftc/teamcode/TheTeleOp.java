@@ -63,7 +63,7 @@ public class TheTeleOp extends OpMode
         } else if (toggleAllowed(gamepad1.b, 1)) {
             ps.eject();
         }
-        //Abhi wrote this.
+        //Rohit wrote this.
         if (gamepad1.x) {
             hr.launcherServo.setPower(ps.servoLauncherSpeed);
         }
