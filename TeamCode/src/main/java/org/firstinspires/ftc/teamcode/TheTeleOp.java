@@ -44,8 +44,8 @@ public class TheTeleOp extends OpMode
     //after start and before stop
     public void loop() {
 
-        double left = gamepad1.left_stick_y + gamepad1.right_stick_x;
-        double right = gamepad1.left_stick_y - gamepad1.right_stick_x;
+        double left = -gamepad1.left_stick_y - gamepad1.right_stick_x;
+        double right = -gamepad1.left_stick_y + gamepad1.right_stick_x;
 
         // Normalize the values so neither exceed +/- 1.0
         double max = Math.max(Math.abs(left), Math.abs(right));
@@ -63,13 +63,16 @@ public class TheTeleOp extends OpMode
         } else if (toggleAllowed(gamepad1.b, 1)) {
             ps.eject();
         }
-
-        if (toggleAllowed(gamepad1.x, 2)) {
-            ps.trigger();
+        //Abhi wrote this.
+        if (gamepad1.x) {
+            hr.launcherServo.setPower(ps.servoLauncherSpeed);
         }
 
-        if (toggleAllowed(gamepad1.y, 3)) {
-            ps.triggerReverse();
+        else if (gamepad1.y) {
+            hr.launcherServo.setPower(-ps.servoLauncherSpeed);
+        }
+        else{
+            hr.launcherServo.setPower(0);
         }
 
         if (toggleAllowed(gamepad1.right_bumper, 9)) {
@@ -78,7 +81,7 @@ public class TheTeleOp extends OpMode
                 ps.stop();
         }
         if (toggleAllowed(gamepad1.left_bumper, 8)) {
-            ps.spinUp();
+            ps.spinDown();
         }
 
         if(shouldShoot){

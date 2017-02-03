@@ -31,6 +31,11 @@ public class ParticleSystem {
         else
             motorLauncher.setPower(0);
     }
+    public void spinDown(){
+        if(motorLauncher.getPower() == 0)
+            motorLauncher.setPower(-launcherSpeed);
+        else motorLauncher.setPower(0);
+    }
 
     public void trigger(){
         if(launcherServo.getPower() == 0)
@@ -52,14 +57,14 @@ public class ParticleSystem {
 
     public void collect(){
         if(carwash.getPower() == 0)
-            carwash.setPower(carwashSpeed);
+            carwash.setPower(-carwashSpeed);
         else
             carwash.setPower(0);
     }
 
     public void eject(){
         if(carwash.getPower() == 0)
-            carwash.setPower(-carwashSpeed);
+            carwash.setPower(carwashSpeed);
         else
             carwash.setPower(0);
     }
@@ -84,4 +89,5 @@ public class ParticleSystem {
         carwash.setPower(0);
         motorLauncher.setPower(0);
     }
+
 }
